@@ -1,0 +1,75 @@
+<html>
+
+<head>
+</head>
+
+<body>
+    <br>
+    
+    <p align="center">
+        <font size="40" face="cambria"><u> RENTAL MOBIL
+    </p>
+    </font></u>
+    <br>
+    <table width="520" border="1" align="center" cellpadding="1" cellspacing="1" bordercolor="black" bgcolor="0fd4f8"></table>
+    <h3>Form Reservation Rental </h3>
+    <form id="form">
+        <label for="name">Name:</label><br />
+        <input type="text" name="name" required />
+        <br /><br />
+
+        <label for="alamat">Address:</label><br />
+        <input type="text" name="alamat" required />
+        <br /><br />
+
+        <label for="number">Phone Number:</label><br />
+        <input type="number" name="number" required />
+        <br /><br />
+
+        <label for="noktp">ID Number/KTP:</label><br />
+        <input type="number" name="noktp" required />
+        <br /><br />
+
+        <label for="date">Date of rent :</label><br />
+        <input type="date" name="date" placeholder="DD-MM-YYYY" required />
+        <br /><br />
+
+        <label for="hour">Hour:</label><br />
+        <input type="text" name="hour" placeholder="hh:mm" required />
+        <br /><br />
+
+        <label for="Type of surf board">Type Mobil:</label><br />
+        <input type="text" name="Type of surf board" required />
+        <br /><br />
+
+        <label for="Lama pinjam">Duration Of Rent:</label><br />
+        <input type="text" name="Lama pinjam" required />
+        <br /> <br />
+
+        <input type="submit" />
+    </form>
+</table>
+
+    <script>
+        const electron = require("electron");
+        const {
+            ipcRenderer
+        } = electron;
+
+        const form = document.getElementById("form");
+        const elements = {};
+
+        form.addEventListener("submit", event => {
+            event.preventDefault();
+
+            for (let i = 0; i < form.elements.length; i++) {
+                if (form.elements[i].type !== "submit")
+                    elements[form.elements[i].name] = form.elements[i].value;
+            }
+
+            ipcRenderer.send("appointment:create", elements);
+        });
+    </script>
+</body>
+
+</html>
